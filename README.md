@@ -102,29 +102,150 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 
 We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+# Biro Travel Umroh (Laravel)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Repository ini berisi aplikasi Laravel untuk Biro Travel Umroh. README ini difokuskan untuk membantu kolaborator agar cepat setup lingkungan development, menjalankan aplikasi, dan mengikuti alur kontribusi yang aman.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Prasyarat (development)
 
-## Code of Conduct
+- PHP 8.1+ (proyek dibuat dengan PHP 8.3 lokal)
+- Composer
+- Node.js >= 20.19 (disarankan) — Vite memerlukan Node >= 20.19 untuk `npm run dev`
+- NPM (atau pnpm/yarn)
+- Git
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Jika Node.js Anda versi lama (mis. v18), Anda tetap bisa membangun assets menggunakan `npm run build`, tetapi untuk development HMR/`npm run dev` upgrade Node direkomendasikan (pakai `nvm-windows`).
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Quick setup (untuk kolaborator)
 
-## License
+Ikuti langkah-langkah ini setelah `git clone`:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Clone repo dan masuk ke folder:
+
+```powershell
+git clone https://github.com/ababiliqbal/biro-travel-umroh.git
+cd biro-travel-umroh
+```
+
+2. Instal dependensi PHP:
+
+```powershell
+composer install
+```
+
+3. Salin file environment dan buat `APP_KEY`:
+
+```powershell
+copy .env.example .env
+php artisan key:generate
+```
+
+4. Siapkan database (default installer membuat `database/database.sqlite`):
+
+```powershell
+# jika belum ada
+php -r "file_exists('database/database.sqlite') || New-Item -ItemType File database/database.sqlite"
+php artisan migrate
+```
+
+5. Instal dependensi Node dan bangun assets:
+
+```powershell
+npm install
+# Untuk development (HMR) — butuh Node >= 20.19
+npm run dev
+# Jika Node tidak kompatibel, gunakan build produksi (assets akan tersedia di public/build):
+npm run build
+```
+
+6. Jalankan server lokal:
+
+```powershell
+php artisan serve
+# buka http://127.0.0.1:8000
+```
+
+---
+
+## Panduan Git & Alur Kontribusi (singkat)
+
+Agar tidak merusak `main`, gunakan alur feature-branch + pull request:
+
+1. Buat branch fitur dari `main`:
+
+```powershell
+git checkout -b feature/<deskripsi-singkat>
+```
+
+2. Kerjakan perubahan, commit secara meaningful:
+
+```powershell
+git add .
+git commit -m "feat: tambahkan form pemesanan"
+```
+
+3. Push branch dan buat Pull Request di GitHub:
+
+```powershell
+git push -u origin feature/<deskripsi-singkat>
+# lalu buka PR via GitHub UI (akan meminta review dan menjalankan CI)
+```
+
+4. Tunggu reviewer dan status checks (CI) lulus, lalu merge via GitHub (squash/merge direkomendasikan).
+
+Catatan keamanan & aturan repository:
+- Jangan push langsung ke `main`.
+- Rebase/merge `main` ke branch Anda jika ada konflik sebelum merge PR.
+- Hindari force-push ke branch bersama.
+
+---
+
+## Running tests
+
+Project sudah menyertakan beberapa test (PHPUnit). Jalankan:
+
+```powershell
+composer install --dev
+php artisan test
+# atau
+./vendor/bin/phpunit
+```
+
+CI (nanti) akan menjalankan test di Pull Request untuk memastikan stabilitas.
+
+---
+
+## Tips Node & Vite
+
+- Vite membutuhkan Node >= 20.19 untuk `npm run dev`. Untuk mengganti versi Node di Windows, gunakan `nvm-windows`:
+
+```powershell
+# setelah install nvm-windows
+nvm install 20.19.0
+nvm use 20.19.0
+node -v
+```
+
+- Jika tidak bisa upgrade sekarang, jalankan `npm run build` untuk menghasilkan assets produksi di `public/build`.
+
+---
+
+## Contributing & komunikasi
+
+- Silakan buka issue jika menemukan bug atau ingin fitur baru.
+- Untuk kontribusi, buat PR dari branch terpisah. Sertakan deskripsi perubahan, cara mengetes, dan screenshot bila perlu.
+- Kami merekomendasikan minimal 1 reviewer untuk PR; projek ini juga menggunakan CI check.
+
+Untuk panduan kontribusi lebih lengkap, kami dapat menambahkan `CONTRIBUTING.md` dan PR templates (saya bisa bantu membuatkan).
+
+---
+
+Jika kamu mau, saya bisa:
+- menambahkan workflow CI (`.github/workflows/ci.yml`) untuk menjalankan test pada PR, dan
+- menambahkan `CONTRIBUTING.md` serta PR template.
+
+Terima kasih — beri tahu langkah otomatis mana yang ingin saya kerjakan selanjutnya.
