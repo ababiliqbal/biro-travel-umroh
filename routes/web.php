@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Jamaah\ProfileController as JamaahProfileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,11 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', UserController::class);
+});
+
+Route::middleware(['auth'])->prefix('jamaah')->name('jamaah.')->group(function () {
+    Route::get('/profile', [JamaahProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [JamaahProfileController::class, 'update'])->name('profile.update');
 });
 
 require __DIR__ . '/auth.php';
