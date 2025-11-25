@@ -50,6 +50,43 @@
                 </a>
             </div>
 
+            @if (session('success'))
+                <div class="mb-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 shadow-sm rounded-r-lg"
+                    role="alert">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="font-bold">Berhasil!</span>
+                            <span class="block sm:inline">{{ session('success') }}</span>
+                        </div>
+                        <button onclick="this.parentElement.parentElement.style.display='none'"
+                            class="text-green-700 hover:text-green-900">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="mb-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 shadow-sm rounded-r-lg"
+                    role="alert">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="font-bold">Gagal!</span>
+                            <span class="block sm:inline">{{ session('error') }}</span>
+                        </div>
+                        <button onclick="this.parentElement.parentElement.style.display='none'"
+                            class="text-red-700 hover:text-red-900">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            @endif
+
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
 
                 <div class="p-5 border-b border-gray-100 bg-white">
@@ -133,8 +170,8 @@
                                                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
                                             </a>
-                                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
-                                                class="inline-block"
+                                            <form action="{{ route('admin.users.destroy', $user->id) }}"
+                                                method="POST" class="inline-block"
                                                 onsubmit="return confirm('Hapus pengguna {{ $user->name }}?')">
                                                 @csrf
                                                 @method('DELETE')
