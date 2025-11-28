@@ -29,3 +29,7 @@ Route::middleware(['auth'])->prefix('jamaah')->name('jamaah.')->group(function (
 });
 
 require __DIR__ . '/auth.php';
+
+use App\Http\Controllers\BookingController;
+
+Route::resource('bookings', BookingController::class);
