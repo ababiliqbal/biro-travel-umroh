@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\PackageController;
+use App\Http\Controllers\Admin\PackageDocumentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Jamaah\ProfileController as JamaahProfileController;
 use App\Http\Controllers\ProfileController;
@@ -23,6 +24,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('packages', PackageController::class);
+    Route::resource('packages.documents', PackageDocumentController::class)
+        ->shallow();
 });
 
 Route::middleware(['auth'])->prefix('jamaah')->name('jamaah.')->group(function () {

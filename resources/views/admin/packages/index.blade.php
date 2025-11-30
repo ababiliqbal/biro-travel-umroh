@@ -136,21 +136,32 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex justify-end items-center gap-2">
-                                        <a href="{{ route('admin.packages.edit', $package->id) }}"
-                                            class="text-gray-400 hover:text-primary transition-colors p-1 rounded-full hover:bg-gray-100"
-                                            title="Edit">
+
+                                        <a href="{{ route('admin.packages.documents.index', $package->id) }}"
+                                            class="p-1 rounded-full text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200"
+                                            title="Kelola Dokumen">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </a>
+
+                                        <a href="{{ route('admin.packages.edit', $package->id) }}"
+                                            class="p-1 rounded-full text-gray-400 hover:text-accent hover:bg-yellow-50 transition-colors duration-200"
+                                            title="Edit Paket">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg>
                                         </a>
+
                                         <form action="{{ route('admin.packages.destroy', $package->id) }}" method="POST"
-                                            class="inline-block"
-                                            onsubmit="return confirm('Hapus paket {{ $package->name }}? Gambar juga akan dihapus.')">
+                                            class="inline-block" onsubmit="return confirm('Hapus paket ini?')">
                                             @csrf @method('DELETE')
                                             <button type="submit"
-                                                class="text-gray-400 hover:text-red-600 transition-colors p-1 rounded-full hover:bg-red-50"
-                                                title="Hapus">
+                                                class="p-1 rounded-full text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors duration-200"
+                                                title="Hapus Paket">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -221,14 +232,29 @@
                                         </svg>
                                         {{ $package->departure_date->format('d M Y') }}
                                     </div>
-                                    <div class="flex gap-3">
+                                    <div class="flex gap-4 items-center"> <a
+                                            href="{{ route('admin.packages.documents.index', $package->id) }}"
+                                            class="text-sm font-medium text-gray-500 hover:text-blue-600 transition-colors flex items-center">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
+                                            </svg>
+                                            Dokumen
+                                        </a>
+
                                         <a href="{{ route('admin.packages.edit', $package->id) }}"
-                                            class="text-sm font-medium text-gray-600 hover:text-primary">Edit</a>
+                                            class="text-sm font-medium text-gray-500 hover:text-accent transition-colors">
+                                            Edit
+                                        </a>
+
                                         <form action="{{ route('admin.packages.destroy', $package->id) }}" method="POST"
                                             class="inline-block" onsubmit="return confirm('Hapus?')">
                                             @csrf @method('DELETE')
                                             <button type="submit"
-                                                class="text-sm font-medium text-red-600 hover:text-red-800">Hapus</button>
+                                                class="text-sm font-medium text-red-500 hover:text-red-700 transition-colors">
+                                                Hapus
+                                            </button>
                                         </form>
                                     </div>
                                 </div>

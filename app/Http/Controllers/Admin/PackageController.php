@@ -114,6 +114,12 @@ class PackageController extends Controller
      */
     public function destroy(Package $package)
     {
+        foreach ($package->documents as $document) {
+            if (Storage::disk('public')->exists($document->file_path)) {
+                Storage::disk('public')->delete($document->file_path);
+            }
+        }
+
         if ($package->cover_image_path && Storage::disk('public')->exists($package->cover_image_path)) {
             Storage::disk('public')->delete($package->cover_image_path);
         }
@@ -121,6 +127,6 @@ class PackageController extends Controller
         $package->delete();
 
         return redirect()->route('admin.packages.index')
-            ->with('success', 'Paket umroh berhasil dihapus.');
+            ->with('success', 'Paket umroh dan dokumen pendukung berhasil dihapus.');
     }
 }

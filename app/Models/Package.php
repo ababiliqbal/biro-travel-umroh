@@ -21,4 +21,9 @@ class Package extends Model
         'price' => 'integer',
         'quota' => 'integer',
     ];
+
+    public function documents()
+    {
+        return $this->hasMany(PackageDocument::class);
+    }
 }
