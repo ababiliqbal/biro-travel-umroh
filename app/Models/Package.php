@@ -13,6 +13,7 @@ class Package extends Model
         'price',
         'quota',
         'departure_date',
+        'departure_location',
         'facilities',
     ];
 
