@@ -4,12 +4,15 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PackageDocumentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Jamaah\ProfileController as JamaahProfileController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/paket', [PageController::class, 'catalog'])->name('packages.catalog');
+Route::get('/paket/{package}', [PageController::class, 'showPackage'])->name('packages.show');
+Route::get('/tentang-kami', [PageController::class, 'about'])->name('about');
+Route::get('/kontak', [PageController::class, 'contact'])->name('contact');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
