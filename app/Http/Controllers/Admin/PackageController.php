@@ -48,6 +48,7 @@ class PackageController extends Controller
             'price'            => 'required|integer|min:0',
             'quota'            => 'required|integer|min:1',
             'departure_date'   => 'required|date',
+            'departure_location'   => 'required|string|max:255',
             'facilities'       => 'nullable|string',
         ]);
 
@@ -90,6 +91,7 @@ class PackageController extends Controller
             'price'            => 'required|integer|min:0',
             'quota'            => 'required|integer|min:1',
             'departure_date'   => 'required|date',
+            'departure_location'   => 'required|string|max:255',
             'facilities'       => 'nullable|string',
         ]);
 

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('price');
             $table->integer('quota');
             $table->date('departure_date');
+            $table->string('departure_location')->nullable();
             $table->text('facilities')->nullable();
             $table->timestamps();
         });

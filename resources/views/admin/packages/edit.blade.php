@@ -80,6 +80,19 @@
                             @enderror
                         </div>
 
+                        <div class="sm:col-span-2">
+                            <label for="departure_location" class="block text-sm font-medium leading-6 text-gray-900">Lokasi
+                                Keberangkatan</label>
+                            <div class="mt-2">
+                                <input type="text" name="departure_location" id="departure_location"
+                                    value="{{ old('departure_location', $package->departure_location) }}" required
+                                    class="block w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
+                            </div>
+                            @error('departure_location')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <div class="sm:col-span-3">
                             <label for="price" class="block text-sm font-medium leading-6 text-gray-900">Harga Per
                                 Orang</label>
