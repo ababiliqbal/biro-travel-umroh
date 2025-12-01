@@ -22,43 +22,54 @@ class BookingController extends Controller
         return view('jamaah.bookings.index', compact('bookings'));
     }
 
-    public function store(Request $request, Package $package)
+    public function store(Request $request, $packageId)
     {
         $user = Auth::user();
 
         if (!$user->jamaahProfile || empty($user->jamaahProfile->ktp_number)) {
             return redirect()->route('jamaah.profile.edit')
-                ->with('error', 'Mohon lengkapi data profil Anda (No. KTP, dll) sebelum mendaftar paket.');
+                ->with('error', 'Mohon lengkapi data profil Anda (No. KTP, Paspor, Alamat) sebelum mendaftar paket.');
         }
 
-        $existingBooking = Booking::where('user_id', $user->id)
-            ->where('package_id', $package->id)
-            ->where('status', '!=', 'rejected')
-            ->exists();
+        try {
+            DB::transaction(function () use ($user, $packageId) {
 
-        if ($existingBooking) {
-            return back()->with('error', 'Anda sudah terdaftar di paket ini. Silakan cek menu "Pendaftaran Saya".');
+                $package = Package::where('id', $packageId)->lockForUpdate()->firstOrFail();
+
+                $existingBooking = Booking::where('user_id', $user->id)
+                    ->where('package_id', $package->id)
+                    ->where('status', '!=', 'rejected')
+                    ->exists();
+
+                if ($existingBooking) {
+                    throw new \Exception('Anda sudah terdaftar di paket ini. Silakan cek menu "Pendaftaran Saya".');
+                }
+
+
+                $currentBookingsCount = Booking::where('package_id', $package->id)
+                    ->where('status', '!=', 'rejected')
+                    ->count();
+
+                if ($currentBookingsCount >= $package->quota) {
+                    throw new \Exception('Mohon maaf, kuota untuk paket ini baru saja habis terjual.');
+                }
+
+                $dueDate = $package->departure_date->copy()->subDays($package->payment_due_days);
+                Booking::create([
+                    'user_id'       => $user->id,
+                    'package_id'    => $package->id,
+                    'status'        => 'waiting',
+                    'total_price'   => $package->price,
+                    'due_date'      => $dueDate,
+                ]);
+            });
+
+
+            return redirect()->route('jamaah.bookings.index')
+                ->with('success', 'Alhamdulillah, kursi berhasil diamankan! Silakan segera lakukan pembayaran.');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
-
-        $totalBooked = Booking::where('package_id', $package->id)
-            ->where('status', '!=', 'rejected')
-            ->count();
-
-        if ($totalBooked >= $package->quota) {
-            return back()->with('error', 'Mohon maaf, kuota untuk paket ini sudah penuh.');
-        }
-
-        DB::transaction(function () use ($user, $package) {
-            Booking::create([
-                'user_id'       => $user->id,
-                'package_id'    => $package->id,
-                'status'        => 'waiting',
-                'total_price'   => $package->price,
-            ]);
-        });
-
-        return redirect()->route('jamaah.bookings.index')
-            ->with('success', 'Alhamdulillah, pendaftaran berhasil! Silakan lakukan pembayaran.');
     }
 
     public function show(Booking $booking)

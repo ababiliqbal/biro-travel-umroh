@@ -15,7 +15,7 @@
             </div>
             <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl font-serif">Keterlambatan Pelunasan</h1>
             <p class="mt-2 text-sm text-gray-700">
-                Daftar jemaah yang belum lunas mendekati keberangkatan (H-{{ $daysBeforeDeparture }}).
+                Daftar jemaah yang belum lunas mendekati keberangkatan (Jatuh Tempo Lewat).
             </p>
         </div>
         <div class="mt-4 sm:mt-0 print:hidden">
@@ -137,7 +137,7 @@
                                     </svg>
                                 </div>
                                 <h3 class="mt-2 text-sm font-medium text-gray-900">Tidak ada keterlambatan</h3>
-                                <p class="mt-1 text-sm text-gray-500">Semua jemaah (H-{{ $daysBeforeDeparture }}) sudah
+                                <p class="mt-1 text-sm text-gray-500">Semua jemaah (jatuh tempo hari ini) sudah
                                     lunas. Alhamdulillah.</p>
                             </td>
                         </tr>

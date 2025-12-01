@@ -14,6 +14,7 @@ class Package extends Model
         'description',
         'price',
         'quota',
+        'payment_due_days',
         'departure_date',
         'departure_location',
         'facilities',
@@ -23,6 +24,7 @@ class Package extends Model
         'departure_date' => 'date',
         'price' => 'integer',
         'quota' => 'integer',
+        'payment_due_days' => 'integer',
     ];
 
     public function bookings()
@@ -33,5 +35,12 @@ class Package extends Model
     public function documents()
     {
         return $this->hasMany(PackageDocument::class);
+    }
+
+    public function getSisaKuotaAttribute()
+    {
+        $taken = $this->bookings()->where('status', '!=', 'rejected')->count();
+
+        return $this->quota - $taken;
     }
 }

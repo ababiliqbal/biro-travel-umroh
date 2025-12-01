@@ -41,6 +41,10 @@
         $totalPaid = $booking->payments->where('status', 'verified')->sum('amount');
         $remaining = $booking->total_price - $totalPaid;
         $progress = $booking->total_price > 0 ? min(100, round(($totalPaid / $booking->total_price) * 100)) : 0;
+
+        // [LOGIKA BARU] Cek lunas & overdue
+        $isLunas = $remaining <= 0;
+        $isOverdue = $booking->due_date && now()->startOfDay()->gt($booking->due_date) && !$isLunas;
     @endphp
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -278,6 +282,21 @@
                                 Rp {{ number_format(max(0, $remaining), 0, ',', '.') }}
                             </span>
                         </div>
+
+                        {{-- [BARU] Info Tenggat Waktu --}}
+                        @if (!$isLunas && $booking->due_date)
+                            <div class="flex justify-between items-center mt-2 pt-2 border-t border-gray-100">
+                                <span class="text-gray-500 text-xs font-medium">Tenggat Waktu</span>
+                                <div class="text-right">
+                                    <span class="text-sm font-bold {{ $isOverdue ? 'text-red-600' : 'text-dark' }}">
+                                        {{ $booking->due_date->format('d M Y') }}
+                                    </span>
+                                    @if ($isOverdue)
+                                        <p class="text-[10px] text-red-500 font-bold animate-pulse">TERLAMBAT</p>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
 

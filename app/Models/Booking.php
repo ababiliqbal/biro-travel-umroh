@@ -15,6 +15,11 @@ class Booking extends Model
         'registered_by',
         'status',
         'total_price',
+        'due_date',
+    ];
+
+    protected $casts = [
+        'due_date' => 'date',
     ];
 
     // Relasi: Booking milik satu User (Jemaah)

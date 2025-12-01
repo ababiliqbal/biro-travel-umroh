@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('status', ['waiting', 'approved', 'departed', 'completed', 'rejected'])
                 ->default('waiting');
             $table->bigInteger('total_price');
+            $table->date('due_date')->nullable();
             $table->timestamps();
         });
     }

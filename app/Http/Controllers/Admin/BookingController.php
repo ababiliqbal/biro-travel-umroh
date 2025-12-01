@@ -68,12 +68,15 @@ class BookingController extends Controller
             return back()->with('error', 'Jemaah ini sudah terdaftar di paket tersebut.')->withInput();
         }
 
+        $dueDate = $package->departure_date->copy()->subDays($package->payment_due_days);
+
         $booking = Booking::create([
             'user_id'       => $request->user_id,
             'package_id'    => $package->id,
             'registered_by' => auth()->id(),
             'status'        => 'waiting',
             'total_price'   => $package->price,
+            'due_date'      => $dueDate,
         ]);
 
         return redirect()->route('admin.bookings.show', $booking->id)

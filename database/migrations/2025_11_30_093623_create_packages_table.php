@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->bigInteger('price');
             $table->integer('quota');
+            $table->integer('payment_due_days')->default(30);
             $table->date('departure_date');
             $table->string('departure_location')->nullable();
             $table->text('facilities')->nullable();

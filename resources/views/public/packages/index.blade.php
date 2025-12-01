@@ -81,15 +81,15 @@
                             </div>
 
                             <div class="absolute top-4 right-4">
-                                @if ($package->quota > 5)
+                                @if ($package->sisa_kuota > 5)
                                     <span
                                         class="bg-white/95 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm flex items-center gap-1">
-                                        {{ $package->quota }} Kursi Tersedia
+                                        {{ $package->sisa_kuota }} Kursi Tersedia
                                     </span>
-                                @elseif($package->quota > 0)
+                                @elseif($package->sisa_kuota > 0)
                                     <span
                                         class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm animate-pulse">
-                                        Sisa {{ $package->quota }} Kursi!
+                                        Sisa {{ $package->sisa_kuota }} Kursi!
                                     </span>
                                 @else
                                     <span class="bg-gray-800 text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">
@@ -162,7 +162,7 @@
                                     </div>
                                 </div>
 
-                                @if ($package->quota > 0)
+                                @if ($package->sisa_kuota > 0)
                                     <a href="{{ route('packages.show', $package->id) }}"
                                         class="px-5 py-2.5 bg-primary text-white text-sm font-bold rounded-lg shadow-md hover:bg-primary-dark hover:shadow-lg transition-all transform hover:-translate-y-0.5">
                                         Detail

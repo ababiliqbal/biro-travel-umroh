@@ -66,26 +66,21 @@ class ReportController extends Controller
 
     public function latePayments()
     {
-        $daysBeforeDeparture = 30;
-
         $lateBookings = Booking::with(['user', 'package', 'payments'])
             ->where('status', 'waiting')
-            ->whereHas('package', function ($q) use ($daysBeforeDeparture) {
-                $q->where('departure_date', '<=', now()->addDays($daysBeforeDeparture))
-                    ->where('departure_date', '>', now());
-            })
+            ->whereDate('due_date', '<', now())
+            ->orderBy('due_date', 'asc')
             ->get();
 
         $lateBookings->transform(function ($booking) {
             $paid = $booking->payments->where('status', 'verified')->sum('amount');
             $booking->debt = $booking->total_price - $paid;
 
-            $booking->due_date = \Carbon\Carbon::parse($booking->package->departure_date)->subDays(30);
             $booking->days_overdue = (int) $booking->due_date->diffInDays(now());
 
             return $booking;
         });
 
-        return view('admin.reports.late_payments', compact('lateBookings', 'daysBeforeDeparture'));
+        return view('admin.reports.late_payments', compact('lateBookings'));
     }
 }

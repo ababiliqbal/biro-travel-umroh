@@ -75,15 +75,34 @@
                             @enderror
                         </div>
 
-                        <div class="sm:col-span-2">
+                        <div class="sm:col-span-3">
                             <label for="departure_location" class="block text-sm font-medium leading-6 text-gray-900">Lokasi
                                 Keberangkatan</label>
                             <div class="mt-2">
                                 <input type="text" name="departure_location" id="departure_location"
-                                    value="{{ old('departure_location') }}" required
+                                    value="{{ old('departure_location', 'Jakarta (CGK)') }}" required
                                     class="block w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
                             </div>
                             @error('departure_location')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="sm:col-span-3">
+                            <label for="payment_due_days" class="block text-sm font-medium leading-6 text-gray-900">
+                                Batas Pelunasan (H-Hari)
+                            </label>
+                            <div class="mt-2 relative rounded-md shadow-sm">
+                                <input type="number" name="payment_due_days" id="payment_due_days"
+                                    value="{{ old('payment_due_days', 30) }}" required min="1"
+                                    class="block w-full rounded-md border-0 py-2.5 pr-16 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                                    placeholder="30">
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <span class="text-gray-500 sm:text-sm">Hari sebelum berangkat</span>
+                                </div>
+                            </div>
+                            <p class="mt-1 text-xs text-gray-500">Contoh: Isi 30 untuk H-30 Keberangkatan.</p>
+                            @error('payment_due_days')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
