@@ -109,6 +109,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function () {
             Route::get('/finance', 'finance')->name('finance');
             Route::get('/statistics', 'statistics')->name('statistics');
+            Route::get('/late-payments', 'latePayments')->name('late_payments');
         });
     });
 });
