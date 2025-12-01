@@ -72,6 +72,18 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $userToEdit  = $user;
+        $currentUser = auth()->user();
+
+        if ($currentUser->role === 'marketing' && $userToEdit->role !== 'jamaah') {
+            if ($userToEdit->id !== $currentUser->id) {
+                return back()->with('error', 'Akses Ditolak. Marketing hanya boleh mengedit data Jemaah.');
+            }
+        }
+
+        if ($userToEdit->role === 'admin' && $userToEdit->id !== $currentUser->id) {
+            return back()->with('error', 'Anda tidak dapat mengubah data sesama Admin demi keamanan.');
+        }
         return view('admin.users.edit', compact('user'));
     }
 
@@ -105,12 +117,24 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if (auth()->id() == $user->id) {
+        $userToDelete = $user;
+        $currentUser  = auth()->user();
+
+        if ($userToDelete->id === $currentUser->id) {
             return back()->with('error', 'Anda tidak dapat menghapus akun sendiri!');
         }
 
-        $user->delete();
+        if ($currentUser->role === 'marketing' && $userToDelete->role !== 'jamaah') {
+            return back()->with('error', 'Akses Ditolak. Marketing hanya boleh menghapus data Jemaah.');
+        }
 
-        return redirect()->route('admin.users.index')->with('success', 'Pengguna berhasil dihapus.');
+        if ($userToDelete->role === 'admin') {
+            return back()->with('error', 'Akun Admin dilindungi dan tidak dapat dihapus. Silakan hubungi IT Super Admin/Database Administrator.');
+        }
+
+        $userToDelete->delete();
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Pengguna berhasil dihapus.');
     }
 }

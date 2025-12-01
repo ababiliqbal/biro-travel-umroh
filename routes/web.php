@@ -94,7 +94,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     // 3. AREA KHUSUS ADMIN (Full Power)
     // Hanya Admin yang boleh: CRUD Paket, Verifikasi Bayar, Hapus Data 
-    Route::middleware('role:admin')->group(function () {
+    Route::middleware('role:admin,marketing')->group(function () {
         // Paket & Dokumen
         Route::resource('packages', PackageController::class);
         Route::resource('packages.documents', PackageDocumentController::class)->shallow();
