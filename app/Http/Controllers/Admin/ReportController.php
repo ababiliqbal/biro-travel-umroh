@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Package;
 use App\Models\Payment;
 use Illuminate\Http\Request;
@@ -67,7 +68,7 @@ class ReportController extends Controller
     {
         $daysBeforeDeparture = 30;
 
-        $lateBookings = \App\Models\Booking::with(['user', 'package', 'payments'])
+        $lateBookings = Booking::with(['user', 'package', 'payments'])
             ->where('status', 'waiting')
             ->whereHas('package', function ($q) use ($daysBeforeDeparture) {
                 $q->where('departure_date', '<=', now()->addDays($daysBeforeDeparture))

@@ -98,6 +98,84 @@
                             @enderror
                         </div>
 
+                        @if ($user->role === 'jamaah')
+                            <div class="sm:col-span-6 pt-4">
+                                <div class="border-t border-gray-100 pt-6">
+                                    <h3 class="text-base font-semibold leading-7 text-gray-900">Detail Data Jamaah</h3>
+                                    <p class="mt-1 text-sm leading-6 text-gray-500">Lengkapi data administrasi untuk
+                                        keperluan pendaftaran umroh.</p>
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="phone_number" class="block text-sm font-medium leading-6 text-gray-900">Nomor
+                                    Telepon (WA)</label>
+                                <div class="mt-2">
+                                    <input type="text" name="phone_number" id="phone_number"
+                                        value="{{ old('phone_number', $user->jamaahProfile->phone_number ?? '') }}"
+                                        class="block w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6
+                                    @error('phone_number') ring-red-300 focus:ring-red-500 @enderror">
+                                </div>
+                                @error('phone_number')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="date_of_birth" class="block text-sm font-medium leading-6 text-gray-900">Tanggal
+                                    Lahir</label>
+                                <div class="mt-2">
+                                    <input type="date" name="date_of_birth" id="date_of_birth"
+                                        value="{{ old('date_of_birth', $user->jamaahProfile->date_of_birth ?? '') }}"
+                                        class="block w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6
+                                    @error('date_of_birth') ring-red-300 focus:ring-red-500 @enderror">
+                                </div>
+                                @error('date_of_birth')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="ktp_number" class="block text-sm font-medium leading-6 text-gray-900">Nomor KTP
+                                    (NIK)</label>
+                                <div class="mt-2">
+                                    <input type="text" name="ktp_number" id="ktp_number"
+                                        value="{{ old('ktp_number', $user->jamaahProfile->ktp_number ?? '') }}"
+                                        class="block w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6
+                                    @error('ktp_number') ring-red-300 focus:ring-red-500 @enderror">
+                                </div>
+                                @error('ktp_number')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="passport_number" class="block text-sm font-medium leading-6 text-gray-900">Nomor
+                                    Paspor</label>
+                                <div class="mt-2">
+                                    <input type="text" name="passport_number" id="passport_number"
+                                        value="{{ old('passport_number', $user->jamaahProfile->passport_number ?? '') }}"
+                                        class="block w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6
+                                    @error('passport_number') ring-red-300 focus:ring-red-500 @enderror">
+                                </div>
+                                @error('passport_number')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="sm:col-span-6">
+                                <label for="address" class="block text-sm font-medium leading-6 text-gray-900">Alamat
+                                    Lengkap</label>
+                                <div class="mt-2">
+                                    <textarea name="address" id="address" rows="3"
+                                        class="block w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6
+                                    @error('address') ring-red-300 focus:ring-red-500 @enderror">{{ old('address', $user->jamaahProfile->address ?? '') }}</textarea>
+                                </div>
+                                @error('address')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        @endif
                         <div class="sm:col-span-6">
                             <div class="border-t border-gray-100 mt-2"></div>
                         </div>
@@ -152,7 +230,8 @@
                     </div>
                 </div>
 
-                <div class="flex items-center justify-end gap-x-4 border-t border-gray-900/10 bg-gray-50 px-4 py-4 sm:px-8">
+                <div
+                    class="flex items-center justify-end gap-x-4 border-t border-gray-900/10 bg-gray-50 px-4 py-4 sm:px-8">
                     <a href="{{ route('admin.users.index') }}"
                         class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-700 transition-colors">
                         Batal
