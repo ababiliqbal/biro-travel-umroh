@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Package extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'name',
         'cover_image_path',
@@ -22,6 +24,11 @@ class Package extends Model
         'price' => 'integer',
         'quota' => 'integer',
     ];
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 
     public function documents()
     {

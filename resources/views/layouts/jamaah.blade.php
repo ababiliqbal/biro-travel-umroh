@@ -88,16 +88,17 @@
                     <nav class="flex flex-1 flex-col mt-4">
                         <ul role="list" class="flex flex-1 flex-col gap-y-4">
                             <li>
-                                <a href="{{ route('jamaah.profile.edit') }}"
-                                    class="group flex gap-x-3 rounded-lg p-3 text-sm font-semibold leading-6 transition-all duration-200 {{ request()->is('jamaah/dashboard') ? 'bg-white/10 text-white shadow-inner' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                                    <svg class="h-6 w-6 shrink-0 {{ request()->is('jamaah/dashboard') ? 'text-accent' : 'text-white/70 group-hover:text-white' }}"
+                                <a href="{{ route('jamaah.bookings.index') }}"
+                                    class="group flex gap-x-3 rounded-lg p-3 text-sm font-semibold leading-6 transition-all duration-200 {{ request()->routeIs('jamaah.bookings.*') ? 'bg-white/10 text-white shadow-inner' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                                    <svg class="h-6 w-6 shrink-0 {{ request()->routeIs('jamaah.bookings.*') ? 'text-accent' : 'text-white/70 group-hover:text-white' }}"
                                         fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                                     </svg>
-                                    Dashboard
+                                    Dashboard & Pendaftaran
                                 </a>
                             </li>
+
                             <li>
                                 <a href="{{ route('jamaah.profile.edit') }}"
                                     class="group flex gap-x-3 rounded-lg p-3 text-sm font-semibold leading-6 transition-all duration-200 {{ request()->routeIs('jamaah.profile.*') ? 'bg-white/10 text-white shadow-inner' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
@@ -133,38 +134,49 @@
         <div class="hidden md:fixed md:inset-y-0 md:z-50 md:flex md:w-72 md:flex-col">
             <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-primary px-6 pb-4 sidebar-scroll shadow-2xl">
                 <div class="flex h-20 shrink-0 items-center justify-center border-b border-white/10">
-                    <span class="text-2xl font-serif font-bold text-white tracking-wide">Barokah<span
-                            class="text-accent">Travel</span></span>
+                    <a href="{{ route('home') }}"
+                        class="text-2xl font-serif font-bold text-white tracking-wide hover:opacity-90 transition">
+                        Barokah<span class="text-accent">Travel</span>
+                    </a>
                 </div>
 
-                <nav class="flex flex-1 flex-col">
-                    <ul role="list" class="flex flex-1 flex-col gap-y-7">
+                <nav class="flex flex-1 flex-col mt-4">
+                    <ul role="list" class="flex flex-1 flex-col gap-y-2">
+
                         <li>
-                            <ul role="list" class="-mx-2 space-y-2">
-                                <li>
-                                    <a href="{{ route('jamaah.profile.edit') }}"
-                                        class="group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-semibold transition-all duration-200 {{ request()->is('jamaah/dashboard') ? 'bg-white/10 text-white shadow-inner ring-1 ring-white/10' : 'text-white/80 hover:bg-white/5 hover:text-white' }}">
-                                        <svg class="h-6 w-6 shrink-0 {{ request()->is('jamaah/dashboard') ? 'text-accent' : 'text-white/60 group-hover:text-white' }}"
-                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                                        </svg>
-                                        Dashboard
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('jamaah.profile.edit') }}"
-                                        class="group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-semibold transition-all duration-200 {{ request()->routeIs('jamaah.profile.*') ? 'bg-white/10 text-white shadow-inner ring-1 ring-white/10' : 'text-white/80 hover:bg-white/5 hover:text-white' }}">
-                                        <svg class="h-6 w-6 shrink-0 {{ request()->routeIs('jamaah.profile.*') ? 'text-accent' : 'text-white/60 group-hover:text-white' }}"
-                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                        </svg>
-                                        Profil Saya
-                                    </a>
-                                </li>
-                            </ul>
+                            <a href="{{ route('jamaah.bookings.index') }}"
+                                class="group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-semibold transition-all duration-200 {{ request()->routeIs('jamaah.bookings.*') ? 'bg-white/10 text-white shadow-inner ring-1 ring-white/10' : 'text-white/80 hover:bg-white/5 hover:text-white' }}">
+                                <svg class="h-6 w-6 shrink-0 {{ request()->routeIs('jamaah.bookings.*') ? 'text-accent' : 'text-white/60 group-hover:text-white' }}"
+                                    fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+                                </svg>
+                                Pendaftaran Saya
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('jamaah.profile.edit') }}"
+                                class="group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-semibold transition-all duration-200 {{ request()->routeIs('jamaah.profile.*') ? 'bg-white/10 text-white shadow-inner ring-1 ring-white/10' : 'text-white/80 hover:bg-white/5 hover:text-white' }}">
+                                <svg class="h-6 w-6 shrink-0 {{ request()->routeIs('jamaah.profile.*') ? 'text-accent' : 'text-white/60 group-hover:text-white' }}"
+                                    fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                </svg>
+                                Profil Saya
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('home') }}"
+                                class="group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-semibold text-white/80 hover:bg-white/5 hover:text-white transition-all duration-200">
+                                <svg class="h-6 w-6 shrink-0 text-white/60 group-hover:text-white" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                </svg>
+                                Ke Halaman Utama
+                            </a>
                         </li>
 
                         <li class="mt-auto border-t border-white/10 pt-4">
@@ -214,6 +226,7 @@
             </footer>
         </div>
     </div>
+
 </body>
 
 </html>
