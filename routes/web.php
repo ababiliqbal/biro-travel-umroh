@@ -69,37 +69,47 @@ Route::middleware('auth')->group(function () {
 // ====================================================
 // 3. AREA KARYAWAN (Admin, Manager, Marketing)
 // ====================================================
-// Kita gunakan middleware 'role' dengan parameter multi-role
-Route::middleware(['auth', 'role:admin,manager,marketing'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
 
-    // Dashboard Utama
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    // Redirect root /admin ke dashboard
-    Route::get('/', function () {
-        return redirect()->route('admin.dashboard');
+    // 1. DASHBOARD (Semua Staf Boleh Masuk)
+    Route::middleware('role:admin,manager,marketing')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', function () {
+            return redirect()->route('admin.dashboard');
+        });
     });
 
-    // Manajemen User
-    Route::resource('users', UserController::class);
+    // 2. AREA KHUSUS ADMIN & MARKETING (Operasional)
+    // Marketing boleh: Daftar Jemaah, Input Booking 
+    Route::middleware('role:admin,marketing')->group(function () {
+        // Manajemen User (Marketing perlu buat akun jemaah baru)
+        Route::resource('users', UserController::class);
 
-    // Manajemen Paket & Dokumen
-    Route::resource('packages', PackageController::class);
-    Route::resource('packages.documents', PackageDocumentController::class)->shallow();
+        // Manajemen Pendaftaran (Input & Lihat Booking)
+        Route::resource('bookings', AdminBookingController::class);
 
-    // Manajemen Pendaftaran (Booking)
-    // Create & Store dibuka untuk fitur "Manual Booking" oleh Staff
-    Route::resource('bookings', AdminBookingController::class);
+        // Input Pembayaran Manual
+        Route::post('/bookings/{booking}/payments', [AdminPaymentController::class, 'store'])->name('bookings.payments.store');
+    });
 
-    // Manajemen Pembayaran (Verifikasi)
-    Route::resource('payments', AdminPaymentController::class)->only(['index', 'update']);
-    // Input Pembayaran Manual oleh Admin
-    Route::post('/bookings/{booking}/payments', [AdminPaymentController::class, 'store'])->name('bookings.payments.store');
+    // 3. AREA KHUSUS ADMIN (Full Power)
+    // Hanya Admin yang boleh: CRUD Paket, Verifikasi Bayar, Hapus Data 
+    Route::middleware('role:admin')->group(function () {
+        // Paket & Dokumen
+        Route::resource('packages', PackageController::class);
+        Route::resource('packages.documents', PackageDocumentController::class)->shallow();
 
-    // Laporan (Biasanya hanya untuk Admin & Manager)
-    Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function () {
-        Route::get('/finance', 'finance')->name('finance');
-        Route::get('/statistics', 'statistics')->name('statistics');
+        // Verifikasi Pembayaran (Approval)
+        Route::resource('payments', AdminPaymentController::class)->only(['index', 'update']);
+    });
+
+    // 4. AREA KHUSUS ADMIN & MANAJER (Laporan)
+    // Manajer hanya melihat laporan & statistik 
+    Route::middleware('role:admin,manager')->group(function () {
+        Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function () {
+            Route::get('/finance', 'finance')->name('finance');
+            Route::get('/statistics', 'statistics')->name('statistics');
+        });
     });
 });
 

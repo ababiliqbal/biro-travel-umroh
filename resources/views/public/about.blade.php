@@ -145,8 +145,7 @@
                 <div class="text-center group">
                     <div
                         class="relative w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gray-100 group-hover:border-primary transition">
-                        <img src="https://ui-avatars.com/api/?name=Ahmad+Fauzan&size=200&background=0A5341&color=fff"
-                            alt="CEO" class="w-full h-full object-cover">
+                        <img src="{{ asset('img/jokowi.jpg') }}" alt="CEO" class="w-full h-full object-cover">
                     </div>
                     <h3 class="text-xl font-bold text-dark">H. Ahmad Fauzan, Lc.</h3>
                     <p class="text-accent font-medium text-sm uppercase tracking-wide">Direktur Utama</p>
@@ -155,8 +154,7 @@
                 <div class="text-center group">
                     <div
                         class="relative w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gray-100 group-hover:border-primary transition">
-                        <img src="https://ui-avatars.com/api/?name=Siti+Aminah&size=200&background=1A237E&color=fff"
-                            alt="Manager" class="w-full h-full object-cover">
+                        <img src="{{ asset('img/jokowi.jpg') }}" alt="Manager" class="w-full h-full object-cover">
                     </div>
                     <h3 class="text-xl font-bold text-dark">Hj. Siti Aminah, S.E.</h3>
                     <p class="text-accent font-medium text-sm uppercase tracking-wide">Manajer Operasional</p>
@@ -165,8 +163,7 @@
                 <div class="text-center group">
                     <div
                         class="relative w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gray-100 group-hover:border-primary transition">
-                        <img src="https://ui-avatars.com/api/?name=Ust+Abdullah&size=200&background=D4AF37&color=fff"
-                            alt="Ustadz" class="w-full h-full object-cover">
+                        <img src="{{ asset('img/jokowi.jpg') }}" alt="Ustadz" class="w-full h-full object-cover">
                     </div>
                     <h3 class="text-xl font-bold text-dark">Ust. Abdullah, M.A.</h3>
                     <p class="text-accent font-medium text-sm uppercase tracking-wide">Kepala Pembimbing</p>
