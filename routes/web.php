@@ -37,14 +37,12 @@ Route::get('/paket', [PageController::class, 'catalog'])->name('packages.catalog
 Route::get('/paket/{package}', [PageController::class, 'showPackage'])->name('packages.show');
 Route::get('/tentang-kami', [PageController::class, 'about'])->name('about');
 Route::get('/kontak', [PageController::class, 'contact'])->name('contact');
-
+Route::post('/kontak', [PageController::class, 'sendContact'])->name('contact.send');
 
 // ====================================================
 // 2. AREA AUTENTIKASI UMUM (Redirector)
 // ====================================================
 
-// Route ini menangani user setelah login.
-// Alih-alih menampilkan view statis, kita arahkan sesuai role-nya.
 Route::get('/dashboard', function () {
     $user = Auth::user();
 
@@ -57,8 +55,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-// Route Edit Profil Bawaan Breeze (Ganti Password, Hapus Akun)
-// Bisa diakses oleh semua user yang login
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

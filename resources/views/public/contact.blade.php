@@ -93,9 +93,19 @@
                         <p class="text-gray-500 mb-8">Silakan isi formulir di bawah ini. Kami akan membalas pesan Anda
                             sesegera mungkin.</p>
 
-                        <form onsubmit="event.preventDefault(); alert('Pesan Anda berhasil dikirim! (Demo Mode)');"
-                            class="space-y-6">
+                        <form class="space-y-6" action="{{ route('contact.send') }}" method="POST">
+                            @csrf
+                            @if (session('success'))
+                                <div class="p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
 
+                            @if (session('error'))
+                                <div class="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label for="name" class="block text-sm font-bold text-dark mb-2">Nama

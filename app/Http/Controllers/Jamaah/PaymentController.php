@@ -23,7 +23,6 @@ class PaymentController extends Controller
         if ($booking->due_date && $inputDate->gt($booking->due_date)) {
             return back()->with('error', 'Tanggal pembayaran yang Anda masukkan (' . $inputDate->format('d M Y') . ') melewati batas jatuh tempo (' . $booking->due_date->format('d M Y') . ').');
         }
-        // -------------------------------
 
         $totalPaidOrPending = $booking->payments()
             ->whereIn('status', ['verified', 'pending'])
