@@ -1,251 +1,290 @@
-# Biro Travel Umroh (Laravel)
+# Sistem Informasi Biro Travel Umroh
 
-Proyek aplikasi web untuk Biro Travel Umroh — dibangun dengan Laravel (scaffold autentikasi menggunakan Laravel Breeze).
+Aplikasi web manajemen dan reservasi perjalanan ibadah umroh berbasis **Laravel 12**, dirancang untuk mempermudah calon jemaah dalam memilih paket perjalanan serta mengotomatisasi operasional biro travel secara terpadu.
 
-Persyaratan (development):
-
-- PHP 8.1+
-- Composer
-- Node.js 20.19+ (disarankan) atau higher — Vite memerlukan Node >= 20.19
-- NPM (atau pnpm/yarn)
-- Git
-
-Instalasi lokal:
-
-1. Masuk ke folder proyek:
-
-```powershell
-cd "E:\KULIAH\GASAL 2025-2026\Pemrograman Web\Proyek Akhir\Biro-Travel-Umroh\biro-travel-umroh"
-```
-
-2. Salin file lingkungan dan set konfigurasi:
-
-```powershell
-copy .env.example .env
-php artisan key:generate
-```
-
-3. Instal dependensi PHP:
-
-```powershell
-composer install
-```
-
-4. Instal dependensi Node dan bangun assets:
-
-> Catatan: Jika Node.js Anda versi lama (mis. v18), jalankan `npm run build` untuk menghasilkan assets produksi. Untuk dev server (HMR), perbarui Node.js ke >= 20.19.
-
-```powershell
-npm install
-npm run dev   # atau `npm run build` jika Node tidak kompatibel
-```
-
-5. Jalankan migrasi database (proyek sudah membuat `database/database.sqlite` saat instalasi):
-
-```powershell
-php artisan migrate
-```
-
-Menjalankan server lokal:
-
-```powershell
-php artisan serve
-# buka http://127.0.0.1:8000
-```
-
-Git & GitHub (singkat):
-
-```powershell
-git init
-git add .
-git commit -m "Initial Laravel project with Breeze auth"
-# buat repo di GitHub lalu:
-git remote add origin https://github.com/<username>/<repo>.git
-git push -u origin main
-```
-
-Catatan:
-- Breeze sudah diinstal dan scaffolding autentikasi tersedia.
-- Jika `npm run dev` error karena versi Node, gunakan `npm run build` untuk sementara atau tingkatkan Node menggunakan `nvm-windows`.
-
-Jika mau, saya bisa melanjutkan: inisialisasi Git, buat commit awal, dan bantu membuat/push ke repositori GitHub.
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-# Biro Travel Umroh (Laravel)
-
-Repository ini berisi aplikasi Laravel untuk Biro Travel Umroh. README ini difokuskan untuk membantu kolaborator agar cepat setup lingkungan development, menjalankan aplikasi, dan mengikuti alur kontribusi yang aman.
+Proyek ini dikembangkan sebagai **Proyek Akhir Mata Kuliah Pemrograman Web (Gasal 2025/2026)**.
 
 ---
 
-## Prasyarat (development)
+## Daftar Isi
 
-- PHP 8.1+ (proyek dibuat dengan PHP 8.3 lokal)
-- Composer
-- Node.js >= 20.19 (disarankan) — Vite memerlukan Node >= 20.19 untuk `npm run dev`
-- NPM (atau pnpm/yarn)
-- Git
-
-Jika Node.js Anda versi lama (mis. v18), Anda tetap bisa membangun assets menggunakan `npm run build`, tetapi untuk development HMR/`npm run dev` upgrade Node direkomendasikan (pakai `nvm-windows`).
+- [Tentang Proyek](#tentang-proyek)
+- [Fitur Utama](#fitur-utama)
+- [Hak Akses Pengguna (RBAC)](#hak-akses-pengguna-rbac)
+- [Tech Stack](#tech-stack)
+- [Struktur Database](#struktur-database)
+- [Prasyarat Sistem](#prasyarat-sistem)
+- [Panduan Instalasi Lokal](#panduan-instalasi-lokal)
+- [Menjalankan Aplikasi](#menjalankan-aplikasi)
+- [Panduan Pengujian (Testing)](#panduan-pengujian-testing)
+- [Alur Kerja Kolaborasi (Git Workflow)](#alur-kerja-kolaborasi-git-workflow)
+- [Struktur Direktori Proyek](#struktur-direktori-proyek)
+- [Lisensi](#lisensi)
 
 ---
 
-## Quick setup (untuk kolaborator)
+## Tentang Proyek
 
-Ikuti langkah-langkah ini setelah `git clone`:
+Sistem Informasi Biro Travel Umroh dirancang untuk mengatasi tantangan operasional konvensional pada biro travel, seperti pencatatan transaksi manual, verifikasi pembayaran yang terfragmentasi, dan lambatnya pelaporan keuangan.
 
-1. Clone repo dan masuk ke folder:
+Aplikasi ini mengintegrasikan seluruh tahapan bisnis travel umroh:
+1. **Etalase Digital Publik:** Membantu calon jemaah melihat katalog paket, detail fasilitas, berkas persyaratan, dan ketersediaan kuota secara transparan.
+2. **Pendaftaran Mandiri & Pemberkasan:** Memfasilitasi jemaah dalam melakukan reservasi online, mengunggah data identitas (KTP & Paspor), dan melacak status keberangkatan.
+3. **Manajemen Operasional & Keuangan:** Membantu tim operasional/marketing dalam mendaftarkan jemaah, memvalidasi bukti transfer, mengontrol jadwal pembayaran jatuh tempo, hingga menyajikan laporan analitik bagi pihak manajer biro.
 
-```powershell
+---
+
+## Fitur Utama
+
+### 1. Portal Publik & Calon Jemaah
+- **Katalog Paket Umroh:** Pencarian dan filter paket berdasarkan kata kunci dan tanggal keberangkatan.
+- **Detail Paket Komprehensif:** Informasi rincian harga, kuota jamaah, hotel, maskapai, fasilitas, dan dokumen wajib.
+- **Pemesanan Mandiri (Self Booking):** Alur pemesanan paket secara instan setelah melakukan autentikasi.
+- **Profil Jemaah:** Manajemen data personal, nomor identitas KTP, nomor paspor, dan kontak darurat.
+- **Upload Bukti Pembayaran:** Pengunggahan bukti transfer pembayaran (DP maupun pelunasan) dengan status verifikasi *real-time*.
+
+### 2. Operasional Biro (Admin & Marketing)
+- **Manajemen Pendaftaran (Bookings):** Registrasi jemaah secara langsung (*on-spot* oleh staf) dan pembaruan status pendaftaran (*waiting, approved, departed, completed, rejected*).
+- **Pencatatan Pembayaran Manual:** Penerimaan dan pencatatan pembayaran tunai/manual dari jemaah.
+- **Katalog Paket & Dokumen Persyaratan (Admin):** CRUD paket perjalanan, penentuan batas waktu pelunasan (*due date*), kuota, dan dokumen wajib.
+- **Verifikasi Pembayaran (Admin):** Validasi berkas bukti transfer dengan konfirmasi status *verified* atau *failed*.
+- **Manajemen Pengguna (User Management):** Pengelolaan akun staf biro dan akun jemaah.
+
+### 3. Eksekutif & Manajemen (Manager)
+- **Laporan Keuangan (Financial Report):** Ringkasan total pendapatan, riwayat transaksi pembayaran terverifikasi, dan filter berdasarkan rentang tanggal.
+- **Statistik & Okupansi Paket:** Analisis keterisian kuota (*occupancy rate*), identifikasi paket terfavorit, serta paket dengan peminat terendah.
+- **Monitoring Tunggakan (Late Payments):** Pelacakan jemaah yang melewati tanggal jatuh tempo pembayaran berserta akumulasi sisa tagihan.
+
+---
+
+## Hak Akses Pengguna (RBAC)
+
+Aplikasi menerapkan sistem otorisasi berbasis peran (*Role-Based Access Control*) melalui middleware:
+
+| Peran (Role) | Ruang Lingkup & Wewenang |
+| :--- | :--- |
+| **`jamaah`** | Mengelola profil pribadi, melakukan booking paket, melihat riwayat pendaftaran, mengunggah bukti bayar. |
+| **`marketing`** | Melihat dashboard staf, membuat akun jemaah baru, mendaftarkan booking jemaah, mencatat pembayaran manual. |
+| **`admin`** | Hak akses penuh: mengelola paket dan dokumen, verifikasi pembayaran transfer, manajemen seluruh user, serta mengakses laporan. |
+| **`manager`** | Akses dashboard eksekutif, laporan keuangan, statistik keterisian paket, dan monitoring pembayaran jatuh tempo. |
+
+---
+
+## Tech Stack
+
+### Backend
+- **Bahasa Pemrograman:** PHP 8.2+
+- **Framework:** [Laravel 12](https://laravel.com/) (MVC Architecture)
+- **Autentikasi:** [Laravel Breeze](https://laravel.com/docs/starter-kits#laravel-breeze)
+- **Database ORM:** Eloquent ORM
+- **Testing:** PHPUnit & Faker
+
+### Frontend
+- **Templating Engine:** Laravel Blade
+- **CSS Framework:** [Tailwind CSS](https://tailwindcss.com/) dengan `@tailwindcss/forms`
+- **JavaScript UI:** [Alpine.js](https://alpinejs.dev/)
+- **Build Tool:** [Vite 7](https://vite.dev/) dengan Hot Module Replacement (HMR)
+
+### Database
+- **Development:** SQLite (`database/database.sqlite`)
+- **Production-Ready:** MySQL / MariaDB / PostgreSQL
+
+---
+
+## Struktur Database
+
+Entitas utama yang saling berelasi di dalam sistem:
+
+```
+[ users ] 1──1 [ jamaah_profiles ]
+    │
+    ├──< [ bookings ] >──1 [ packages ]
+    │          │                     │
+    │          │                     └──1──< [ package_documents ]
+    │          │
+    │          └──1──< [ payments ]
+    │                      │
+    └──(verified_by)───────┘
+```
+
+- **`users`**: Menyimpan kredensial autentikasi dan peran (`jamaah`, `admin`, `manager`, `marketing`).
+- **`jamaah_profiles`**: Data identitas pendukung jemaah (KTP, paspor, nomor telepon, alamat, tanggal lahir).
+- **`packages`**: Data paket umroh (nama, harga, kuota, tanggal keberangkatan, fasilitas, gambar cover).
+- **`package_documents`**: Dokumen persyaratan yang diwajibkan untuk paket tertentu.
+- **`bookings`**: Transaksi reservasi jemaah terhadap paket dengan status verifikasi dan tanggal jatuh tempo.
+- **`payments`**: Riwayat transaksi pembayaran, metode (online/manual), nominal, bukti pembayaran, dan staf yang memvalidasi.
+
+---
+
+## Prasyarat Sistem
+
+Sebelum memulai instalasi, pastikan sistem lokal Anda telah terpasang:
+
+- **PHP** >= 8.2 (dengan ekstensi `pdo`, `sqlite3`, `mbstring`, `openssl`, `curl`)
+- **Composer** >= 2.2
+- **Node.js** >= 20.19.0 (Rekomendasi)
+- **NPM** atau Package Manager alternatif (Yarn / PNPM)
+- **Git**
+
+---
+
+## Panduan Instalasi Lokal
+
+Ikuti langkah-langkah berikut untuk mengatur proyek di lingkungan lokal:
+
+### 1. Kloning Repositori
+```bash
 git clone https://github.com/ababiliqbal/biro-travel-umroh.git
 cd biro-travel-umroh
 ```
 
-2. Instal dependensi PHP:
-
-```powershell
+### 2. Instal Dependensi Backend
+```bash
 composer install
 ```
 
-3. Salin file environment dan buat `APP_KEY`:
-
-```powershell
+### 3. Konfigurasi Environment
+Salin file template `.env.example` menjadi `.env`, lalu generate application key:
+```bash
+# Windows (PowerShell / CMD)
 copy .env.example .env
+
+# Linux / macOS
+cp .env.example .env
+
 php artisan key:generate
 ```
 
-4. Siapkan database (default installer membuat `database/database.sqlite`):
+### 4. Konfigurasi Database & Migrasi
+Secara default, proyek telah terkonfigurasi menggunakan **SQLite**. Buat berkas database SQLite jika belum ada, lalu jalankan migrasi:
 
-```powershell
-# jika belum ada
-php -r "file_exists('database/database.sqlite') || New-Item -ItemType File database/database.sqlite"
+```bash
+# Windows PowerShell
+if (!(Test-Path "database\database.sqlite")) { New-Item -ItemType File "database\database.sqlite" }
+
+# Linux / macOS
+touch database/database.sqlite
+
+# Eksekusi migrasi skema tabel
 php artisan migrate
 ```
 
-5. Instal dependensi Node dan bangun assets:
+*(Opsional)* Jika Anda ingin menggunakan database **MySQL**, sesuaikan konfigurasi pada file `.env`:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=biro_travel_umroh
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-```powershell
+### 5. Instal Dependensi Frontend & Kompilasi Asset
+```bash
 npm install
-# Untuk development (HMR) — butuh Node >= 20.19
+
+# Untuk kebutuhan development (Vite HMR)
 npm run dev
-# Jika Node tidak kompatibel, gunakan build produksi (assets akan tersedia di public/build):
+
+# Atau kompilasi untuk aset produksi
 npm run build
 ```
 
-6. Jalankan server lokal:
+---
 
-```powershell
+## Menjalankan Aplikasi
+
+Anda dapat menjalankan server aplikasi melalui beberapa opsi berikut:
+
+### Opsi A: Eksekusi Tunggal (Artisan Serve)
+Buka terminal dan jalankan server web lokal:
+```bash
 php artisan serve
-# buka http://127.0.0.1:8000
+```
+Buka peramban di `http://127.0.0.1:8000`.
+
+### Opsi B: Mode Pengembangan Penuh (Concurrent Runner)
+Jika ingin menjalankan web server, queue listener, log viewer (*pail*), dan Vite secara bersamaan dalam satu jendela terminal:
+```bash
+composer run dev
 ```
 
 ---
 
-## Panduan Git & Alur Kontribusi (singkat)
+## Panduan Pengujian (Testing)
 
-Agar tidak merusak `main`, gunakan alur feature-branch + pull request:
+Proyek ini telah dilengkapi dengan unit dan feature test untuk memastikan keandalan alur autentikasi dan fungsionalitas utama:
 
-1. Buat branch fitur dari `main`:
-
-```powershell
-git checkout -b feature/<deskripsi-singkat>
-```
-
-2. Kerjakan perubahan, commit secara meaningful:
-
-```powershell
-git add .
-git commit -m "feat: tambahkan form pemesanan"
-```
-
-3. Push branch dan buat Pull Request di GitHub:
-
-```powershell
-git push -u origin feature/<deskripsi-singkat>
-# lalu buka PR via GitHub UI (akan meminta review dan menjalankan CI)
-```
-
-4. Tunggu reviewer dan status checks (CI) lulus, lalu merge via GitHub (squash/merge direkomendasikan).
-
-Catatan keamanan & aturan repository:
-- Jangan push langsung ke `main`.
-- Rebase/merge `main` ke branch Anda jika ada konflik sebelum merge PR.
-- Hindari force-push ke branch bersama.
-
----
-
-## Running tests
-
-Project sudah menyertakan beberapa test (PHPUnit). Jalankan:
-
-```powershell
-composer install --dev
+```bash
+# Menjalankan test suite Laravel
 php artisan test
-# atau
+
+# Atau menggunakan binary PHPUnit langsung
 ./vendor/bin/phpunit
 ```
 
-CI (nanti) akan menjalankan test di Pull Request untuk memastikan stabilitas.
+---
+
+## Alur Kerja Kolaborasi (Git Workflow)
+
+Untuk menjaga stabilitas kode pada branch `main`, seluruh kontributor diharapkan menerapkan alur kerja berbasis fitur (*Feature Branching Workflow*):
+
+1. **Sinkronkan branch utama:**
+   ```bash
+   git checkout main
+   git pull origin main
+   ```
+2. **Buat branch fitur baru:**
+   ```bash
+   git checkout -b feature/nama-fitur-singkat
+   ```
+3. **Commit perubahan secara berkala:**
+   Gunakan konvensi commit yang jelas (misalnya: *Conventional Commits*):
+   ```bash
+   git commit -m "feat: tambahkan validasi dokumen paspor pada form booking"
+   ```
+4. **Push branch dan buka Pull Request (PR):**
+   ```bash
+   git push -u origin feature/nama-fitur-singkat
+   ```
+5. Tunggu proses review dan pastikan tidak terdapat konflik sebelum branch digabungkan (*merge*) ke `main`.
 
 ---
 
-## Tips Node & Vite
+## Struktur Direktori Proyek
 
-- Vite membutuhkan Node >= 20.19 untuk `npm run dev`. Untuk mengganti versi Node di Windows, gunakan `nvm-windows`:
+Ringkasan direktori inti aplikasi:
 
-```powershell
-# setelah install nvm-windows
-nvm install 20.19.0
-nvm use 20.19.0
-node -v
+```text
+biro-travel-umroh/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Admin/          # Controller untuk Admin & Manager (Paket, Laporan, Pembayaran)
+│   │   │   ├── Jamaah/         # Controller transaksi dan profil jemaah
+│   │   │   ├── Auth/           # Controller autentikasi (Breeze)
+│   │   │   └── PageController.php # Halaman publik (Katalog, Beranda, Kontak)
+│   │   └── Middleware/         # Middleware RBAC (EnsureUserHasRole)
+│   └── Models/                 # Eloquent Model (User, Package, Booking, Payment, dll)
+├── database/
+│   ├── migrations/             # Skema tabel database
+│   └── seeders/                # Data awal untuk pengujian
+├── resources/
+│   ├── views/
+│   │   ├── admin/              # Tampilan antarmuka dashboard staf & manajemen
+│   │   ├── jamaah/             # Tampilan panel dan reservasi jemaah
+│   │   ├── public/             # Tampilan beranda dan katalog publik
+│   │   └── layouts/            # Template Blade utama
+│   ├── css/                    # Konfigurasi Tailwind CSS
+│   └── js/                     # Skrip JavaScript & Alpine.js
+├── routes/
+│   ├── web.php                 # Rute utama aplikasi web
+│   └── auth.php                # Rute autentikasi bawaan Breeze
+└── tests/                      # Skrip pengujian otomatis (Feature & Unit)
 ```
 
-- Jika tidak bisa upgrade sekarang, jalankan `npm run build` untuk menghasilkan assets produksi di `public/build`.
-
 ---
 
-## Contributing & komunikasi
+## Lisensi
 
-- Silakan buka issue jika menemukan bug atau ingin fitur baru.
-- Untuk kontribusi, buat PR dari branch terpisah. Sertakan deskripsi perubahan, cara mengetes, dan screenshot bila perlu.
-- Kami merekomendasikan minimal 1 reviewer untuk PR; projek ini juga menggunakan CI check.
-
-Untuk panduan kontribusi lebih lengkap, kami dapat menambahkan `CONTRIBUTING.md` dan PR templates (saya bisa bantu membuatkan).
-
----
-
-Jika kamu mau, saya bisa:
-- menambahkan workflow CI (`.github/workflows/ci.yml`) untuk menjalankan test pada PR, dan
-- menambahkan `CONTRIBUTING.md` serta PR template.
-
-Terima kasih — beri tahu langkah otomatis mana yang ingin saya kerjakan selanjutnya.
+Proyek ini dikembangkan untuk kebutuhan akademik di lingkungan perkuliahan dan didistribusikan di bawah lisensi [MIT](LICENSE).
